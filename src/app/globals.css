@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 自定义颜色变量 */
+:root {
+  --color-primary: #ff6600;
+  --color-text: #1a1a1a;
+  --color-bg: #ffffff;
+}
+
+/* 基础全局样式 */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'sans-serif', 'Helvetica', 'Arial';
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
