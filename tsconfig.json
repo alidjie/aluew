@@ -1,31 +1,44 @@
 {
   "compilerOptions": {
-    "target": "ESNext",           // 更新为现代ES版本
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,               // Next.js由Babel编译，无需tsc输出
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",   // 修复路径解析！改为Node策略[4,7](@ref)
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",            // 支持JSX
-    "incremental": true,
-    "baseUrl": "./",              // 启用基准路径[6,7](@ref)
+    /* 基础编译目标 */
+    "target": "esnext",               // 生成现代ES语法代码
+    "module": "esnext",               // 使用ES模块规范
+    "lib": ["dom", "dom.iterable", "esnext"], // 支持DOM和最新ES特性
+    "moduleResolution": "node",       // 使用Node.js模块解析策略 [1,5](@ref)
+    
+    /* 严格类型检查 */
+    "strict": true,                   // 启用所有严格检查（推荐开启）
+    "noUnusedLocals": true,           // 禁止未使用的局部变量
+    "noUnusedParameters": true,       // 禁止未使用的函数参数
+    "skipLibCheck": true,             // 跳过第三方库类型检查（提升编译速度）[3](@ref)
+    
+    /* 路径别名配置（关键） */
+    "baseUrl": ".",                   // 基准目录设为项目根目录
     "paths": {
-      "@/*": ["./src/*"],         // 保持原有别名
-      "@/components/*": ["./src/components/*"] // 新增组件路径映射[7](@ref)
-    }
+      "@/*": ["./src/*"],             // 示例别名：@/components → ./src/components
+      "@/components/*": ["./src/components/*"] // 显式声明组件路径 [6](@ref)
+    },
+    
+    /* 模块兼容性 */
+    "esModuleInterop": true,          // 增强CommonJS/ES模块兼容性
+    "allowSyntheticDefaultImports": true, // 允许默认导入非ES模块
+    
+    /* React/JSX 支持 */
+    "jsx": "preserve",                // 保留JSX语法（由Babel/SWC转换）
+    "resolveJsonModule": true,        // 允许导入JSON文件
+    
+    /* 输出控制 */
+    "noEmit": true,                   // Next.js由SWC编译，无需tsc输出文件
+    "incremental": true               // 启用增量编译（提升后续构建速度）[5](@ref)
   },
   "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
+    "next-env.d.ts",                  // Next.js环境类型
+    "**/*.ts",                        // 所有TS文件
+    "**/*.tsx"                        // 所有TSX文件
   ],
   "exclude": [
-    "node_modules",
-    ".next"        // 排除构建目录，避免重复编译[5](@ref)
+    "node_modules",                   // 排除依赖目录
+    ".next",                          // 排除构建输出目录
+    "dist"                            // 避免重复编译
   ]
 }
