@@ -1,52 +1,21 @@
 {
   "compilerOptions": {
     "target": "esnext",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "moduleResolution": "node", // 使用 Node 模块解析策略[3,6](@ref)
+    "moduleResolution": "node",
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "skipLibCheck": true,
-    "baseUrl": ".", // 基准路径设为根目录[6,7](@ref)
+    "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ], // 通用别名
-      "@/components/*": [
-        "./src/components/*"
-      ], // 组件路径
-      "@/lib/*": [
-        "./src/lib/*"
-      ] // 修复：移除行尾注释和无效符号
+      "@/*": ["./src/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/lib/*": ["./src/lib/*"]
     },
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
     "resolveJsonModule": true,
-    "noEmit": true,
-    "incremental": true,
-    "allowJs": true,
-    "isolatedModules": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "noEmit": true
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "next-env.d.ts",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    ".next",
-    "dist"
-  ] // 排除构建目录[3,6](@ref)
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", ".next"]
 }
