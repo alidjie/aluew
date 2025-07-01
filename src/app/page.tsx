@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FaFacebook, FaLinkedin, FaWhatsapp, FaWeixin } from "react-icons/fa";
+import Image from "next/image"; // 添加Image组件
 
 const newsItems = [
   "New Magnetic Filter product launched – June 2025",
@@ -43,7 +44,6 @@ const products = [
   },
 ];
 
-// 简单示例Blog文章（后续可以改为从API获取）
 const blogPosts = [
   {
     id: 1,
@@ -67,8 +67,8 @@ const blogPosts = [
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [currentNews, setCurrentNews] = useState(0);
-
+  const [currentNews, setCurrentNews] = useState(0); // 添加状态声明
+ 
   // Inquiry form state
   const [inquiry, setInquiry] = useState({
     name: "",
@@ -85,7 +85,6 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, []);
 
-  // 简单表单提交处理（示范，可改为真实API）
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setInquiry((prev) => ({ ...prev, [name]: value }));
@@ -93,7 +92,6 @@ export default function HomePage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // 这里演示提交逻辑，实际需改为调用后端接口
     if (!inquiry.name || !inquiry.email || !inquiry.message) {
       setFormStatus("Please fill in all required fields.");
       return;
@@ -110,7 +108,13 @@ export default function HomePage() {
       {/* 导航栏 */}
       <nav className="flex flex-col sm:flex-row justify-between items-center px-6 py-4 shadow bg-[#1e3a8a] text-white">
         <div className="flex items-center space-x-3 mb-3 sm:mb-0">
-          <img src="/logo.png" alt="Logo" className="h-10 w-10" />
+          <Image 
+            src="/logo.png" 
+            alt="Logo" 
+            width={40} 
+            height={40} 
+            className="h-10 w-10"
+          />
           <span className="text-xl font-bold">Taizhou Youjiu Trading Co., Ltd.</span>
         </div>
 
@@ -157,6 +161,11 @@ export default function HomePage() {
         </Link>
       </section>
 
+      {/* 新闻轮播 */}
+      <div className="bg-[#1e3a8a] text-white py-2 text-center">
+        <p>{newsItems[currentNews]}</p>
+      </div>
+
       {/* 产品展示卡片（1x3 + 1x2） */}
       <section className="py-16 bg-[#f0f4f8]">
         <div className="max-w-7xl mx-auto px-4">
@@ -165,7 +174,13 @@ export default function HomePage() {
             {products.map((p, idx) => (
               <div key={idx} className="bg-white rounded shadow hover:shadow-lg transition">
                 <Link href={p.href}>
-                  <img src={p.image} alt={p.title} className="w-full h-48 object-cover rounded-t" />
+                  <Image 
+                    src={p.image} 
+                    alt={p.title} 
+                    width={400} 
+                    height={192} 
+                    className="w-full h-48 object-cover rounded-t"
+                  />
                 </Link>
                 <div className="p-4">
                   <h3 className="text-lg font-bold mb-2">{p.title}</h3>
@@ -181,35 +196,40 @@ export default function HomePage() {
       </section>
 
       {/* 图文产品介绍模块 */}
- {/* 图文产品介绍模块（左右错开排列） */}
-<section className="py-20 bg-white">
-  <div className="max-w-6xl mx-auto px-4 space-y-12">
-    {products.map((p, idx) => (
-      <div
-        key={idx}
-        className={`flex flex-col md:flex-row items-center gap-6 ${
-          idx % 2 === 1 ? "md:flex-row-reverse" : ""
-        }`}
-      >
-        <img src={p.image} alt={p.title} className="w-full md:w-1/3 rounded shadow" />
-        <div className="md:w-2/3">
-          <h3 className="text-xl font-bold text-[#1e3a8a] mb-2">{p.title}</h3>
-          <p className="text-gray-600 mb-4">{p.spec}</p>
-          <ul className="list-disc list-inside text-gray-600 space-y-1 mb-4">
-            <li>High quality materials</li>
-            <li>Competitive pricing</li>
-            <li>OEM support available</li>
-            <li>Stable supply and fast delivery</li>
-          </ul>
-          <Link href={p.href} className="text-[#1e3a8a] underline font-medium mr-4">View Details</Link>
-          <Link href="/inquiry" className="inline-block px-4 py-2 bg-[#1e3a8a] text-white rounded hover:bg-blue-800 text-sm">
-            Send Inquiry
-          </Link>
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 space-y-12">
+          {products.map((p, idx) => (
+            <div
+              key={idx}
+              className={`flex flex-col md:flex-row items-center gap-6 ${
+                idx % 2 === 1 ? "md:flex-row-reverse" : ""
+              }`}
+            >
+              <Image 
+                src={p.image} 
+                alt={p.title} 
+                width={400} 
+                height={300} 
+                className="w-full md:w-1/3 rounded shadow"
+              />
+              <div className="md:w-2/3">
+                <h3 className="text-xl font-bold text-[#1e3a8a] mb-2">{p.title}</h3>
+                <p className="text-gray-600 mb-4">{p.spec}</p>
+                <ul className="list-disc list-inside text-gray-600 space-y-1 mb-4">
+                  <li>High quality materials</li>
+                  <li>Competitive pricing</li>
+                  <li>OEM support available</li>
+                  <li>Stable supply and fast delivery</li>
+                </ul>
+                <Link href={p.href} className="text-[#1e3a8a] underline font-medium mr-4">View Details</Link>
+                <Link href="/inquiry" className="inline-block px-4 py-2 bg-[#1e3a8a] text-white rounded hover:bg-blue-800 text-sm">
+                  Send Inquiry
+                </Link>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
-    ))}
-  </div>
-</section>
+      </section>
 
       {/* 公司视频介绍 */}
       <section className="py-20 bg-[#f9f9fb]">
@@ -232,11 +252,11 @@ export default function HomePage() {
           <h2 className="text-2xl font-bold mb-8">What Our Clients Say</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
             <div className="p-4 bg-gray-50 rounded shadow">
-              <p className="italic mb-2">"Excellent service and on-time delivery for our wholesale orders."</p>
+              <p className="italic mb-2">&quot;Excellent service and on-time delivery for our wholesale orders.&quot;</p>
               <p className="text-sm text-gray-600">— John M., USA</p>
             </div>
             <div className="p-4 bg-gray-50 rounded shadow">
-              <p className="italic mb-2">"Stable quality and competitive pricing helped us grow our market."</p>
+              <p className="italic mb-2">&quot;Stable quality and competitive pricing helped us grow our market.&quot;</p>
               <p className="text-sm text-gray-600">— Carlos L., Chile</p>
             </div>
           </div>
@@ -253,7 +273,7 @@ export default function HomePage() {
               <p className="text-gray-600">Yes, we support full OEM packaging and labeling, with low MOQ.</p>
             </div>
             <div>
-              <h3 className="font-semibold">Q: What’s your delivery time?</h3>
+              <h3 className="font-semibold">Q: What&apos;s your delivery time?</h3>
               <p className="text-gray-600">Normally 15–25 days depending on the order volume and product type.</p>
             </div>
             <div>
@@ -352,7 +372,7 @@ export default function HomePage() {
       {/* CTA */}
       <section className="text-center bg-[#1e3a8a] py-16 text-white">
         <h2 className="text-3xl font-bold mb-4">Looking for a Dependable Export Partner?</h2>
-        <p className="mb-6">Let’s connect to explore tailored sourcing, private label, or regional partnership opportunities.</p>
+        <p className="mb-6">Let&apos;s connect to explore tailored sourcing, private label, or regional partnership opportunities.</p>
         <Link href="/inquiry" className="bg-[#38bdf8] text-[#1e3a8a] font-semibold px-6 py-3 rounded hover:bg-cyan-300">
           Send Inquiry
         </Link>
