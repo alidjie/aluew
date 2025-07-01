@@ -10,7 +10,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   return {
     title: `${product.name} | Taizhou Youjiu Trading`,
     description: product.description.slice(0, 160),
-    keywords: product.keywords.join(', ')，
+    keywords: product.keywords.join(', '),
     openGraph: {
       title: product.name,
       description: product.shortDescription,
